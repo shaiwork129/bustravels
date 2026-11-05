@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KalikaBus | Premium Bus Travel Services (Pune ↔ Sambhajinagar)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B1120',
+                            navy: '#0F172A',
+                            surface: '#1E293B',
+                            accent: '#F59E0B', // Warm Gold/Amber
+                            accentHover: '#D97706',
+                            blue: '#2563EB',
+                            cyan: '#06B6D4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glassmorphism utility styles */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1120;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-brand-dark">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="glass-panel border-b border-slate-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Brand Logo -->
+                    <a href="#home" class="flex items-center space-x-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent to-amber-300 flex items-center justify-center text-brand-dark shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-bus text-xl font-black"></i>
+                        </div>
+                        <div>
+                            <span class="font-heading font-extrabold text-2xl tracking-wider text-white">KALIKA<span class="text-brand-accent">BUS</span></span>
+                            <span class="block text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Luxury Bus Service</span>
+                        </div>
+                    </a>
+
+                    <!-- Desktop Nav Links -->
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="#home" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition-colors">Home</a>
+                        <a href="#why-us" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition-colors">Why Choose Us</a>
+                        <a href="#routes" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition-colors">Routes & Stops</a>
+                        <a href="#gallery" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition-colors">Fleet Gallery</a>
+                        <a href="#testimonials" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    </nav>
+
+                    <!-- CTA Button & Mobile Toggle -->
+                    <div class="flex items-center space-x-4">
+                        <button onclick="openBookingModal()" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-accent to-amber-600 text-brand-dark shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-95 transition-all">
+                            <i class="fa-solid fa-phone mr-2"></i> Enquire Now
+                        </button>
+                        
+                        <!-- Mobile Menu Button -->
+                        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white focus:outline-none">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-accent">Home</a>
+            <a href="#why-us" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-accent">Why Choose Us</a>
+            <a href="#routes" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-accent">Routes & Stops</a>
+            <a href="#gallery" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-accent">Fleet Gallery</a>
+            <a href="#testimonials" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-accent">Testimonials</a>
+            <button onclick="openBookingModal()" class="w-full mt-2 flex items-center justify-center px-5 py-3 rounded-xl font-semibold text-sm bg-brand-accent text-brand-dark shadow-lg">
+                <i class="fa-solid fa-phone mr-2"></i> Enquire Now
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden flex items-center min-h-[75vh]">
+        <!-- Background Orbs -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/20 rounded-full blur-[140px] pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-brand-accent/15 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-30"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+            <div class="space-y-8 max-w-4xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card border border-amber-500/30 text-xs font-semibold text-brand-accent">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                    </span>
+                    <span>Daily Express Bus Services Operational</span>
+                </div>
+
+                <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+                    Travel in <span class="text-gradient-gold">Luxury & Comfort</span> with KalikaBus
+                </h1>
+
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-light">
+                    Experience smooth, hygienic, and punctual journeys running daily to and fro from 
+                    <strong class="text-white font-semibold">Pune ⇄ Chhatrapati Sambhajinagar</strong>. 
+                    Safety and punctuality are guaranteed.
+                </p>
+
+                <!-- Active Route Banner -->
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+                    <div class="glass-panel px-5 py-3 rounded-2xl flex items-center space-x-3 border border-slate-700/60">
+                        <i class="fa-solid fa-location-dot text-brand-accent text-lg"></i>
+                        <div class="text-left">
+                            <span class="text-xs text-slate-400 block">Primary Route</span>
+                            <span class="text-sm font-bold text-white">Pune ⇄ Chhatrapati Sambhajinagar</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel px-5 py-3 rounded-2xl flex items-center space-x-3 border border-slate-700/60">
+                        <i class="fa-solid fa-bullhorn text-cyan-400 text-lg"></i>
+                        <div class="text-left">
+                            <span class="text-xs text-slate-400 block">Expansion</span>
+                            <span class="text-sm font-bold text-cyan-300">New Bus Routes Launching Soon!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button onclick="openBookingModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base bg-gradient-to-r from-brand-accent to-amber-600 text-brand-dark shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all text-center">
+                        <i class="fa-solid fa-phone mr-2"></i> Enquire Now
+                    </button>
+                    <a href="#routes" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base glass-panel text-white hover:bg-slate-800 transition-all border border-slate-700 text-center">
+                        View Pickup & Drop Points <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= WHY CHOOSE US / FEATURES ================= -->
+    <section id="why-us" class="py-20 relative bg-slate-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-accent mb-3">Our Highlights</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-extrabold text-white">Why Smart Travelers Choose KalikaBus</p>
+                <p class="mt-3 text-slate-400 text-sm sm:text-base">We prioritize safety, cleanliness, and punctuality above all else for your peaceful journey.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-brand-accent flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-3">Reliable & Timely</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Strict departure and arrival timings so you always reach your destination without unexpected delays.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-3">Clean & Neat</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Deep-cleaned coaches after every trip with fresh bedsheets for sleeper berths and disinfected seats.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-3">Safe Environment</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Experienced drivers, speed limits, GPS tracking, and a secure environment for families and solo female travelers.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-3">Trustworthy Service</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Transparent communication, quick phone support, and courteous crew members to assist you at all stops.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ROUTES & STOPS (COLLAPSED) ================= -->
+    <section id="routes" class="py-20 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-accent mb-3">Network & Schedules</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-extrabold text-white">Routes & Detailed Pickup / Drop Points</p>
+                <p class="mt-3 text-slate-400 text-sm sm:text-base">Click on a route below to view exact pickup locations and drop points.</p>
+            </div>
+
+            <!-- Accordions Wrapper -->
+            <div class="space-y-6">
+
+                <!-- ROUTE 1 (ACTIVE ROUTE) -->
+                <div class="glass-panel rounded-2xl border border-amber-500/30 overflow-hidden transition-all duration-300">
+                    <button onclick="toggleAccordion('route-1')" class="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors focus:outline-none">
+                        <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 w-fit">
+                                <i class="fa-solid fa-circle text-[8px] mr-1.5 animate-pulse"></i> Active Daily Route
+                            </span>
+                            <h3 class="font-heading text-xl font-bold text-white">Pune ⇄ Chhatrapati Sambhajinagar</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-brand-accent ml-4 shrink-0">
+                            <i id="icon-route-1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </div>
+                    </button>
+
+                    <div id="content-route-1" class="hidden border-t border-slate-800 px-6 py-6 bg-slate-900/40">
+                        <p class="text-xs text-slate-400 mb-6 uppercase tracking-wider font-semibold">Multiple departures available morning, evening & night daily.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Pickup Points -->
+                            <div class="glass-card p-5 rounded-xl border border-slate-800">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
+                                        <i class="fa-solid fa-bus-simple"></i>
+                                    </div>
+                                    <h4 class="font-heading font-bold text-white text-lg">Pune Pickup Points</h4>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-brand-accent mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Swargate:</strong> Near Laxmi Narayan Theatre / Bus Stand</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-brand-accent mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Shivaji Nagar:</strong> Near Railway Station Flyover</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-brand-accent mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Viman Nagar:</strong> Hyatt Hotel Corner / Highway Stop</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-brand-accent mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Wagholi:</strong> Opposite BPCL Petrol Pump</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-brand-accent mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Ranjangaon:</strong> MIDC Main Gate Stop</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Drop Points -->
+                            <div class="glass-card p-5 rounded-xl border border-slate-800">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm font-bold">
+                                        <i class="fa-solid fa-flag-checkered"></i>
+                                    </div>
+                                    <h4 class="font-heading font-bold text-white text-lg">Sambhajinagar Drop Points</h4>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-cyan-400 mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Waluj:</strong> Opp. Bajaj Auto Main Gate</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-cyan-400 mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Railway Station:</strong> Main Entrance Gate</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-cyan-400 mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Kranti Chowk:</strong> Near Flyover / Signal Stop</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-cyan-400 mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">CIDCO:</strong> Bus Stand / Baba Petrol Pump Stop</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-location-dot text-cyan-400 mt-1 mr-3 shrink-0"></i>
+                                        <div><strong class="text-white">Seven Hills:</strong> Main Junction Signal</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-info-circle text-brand-accent mr-1"></i> Return journeys follow the reverse pickup & drop sequence.</span>
+                            <button onclick="openBookingModal('Pune ⇄ Chhatrapati Sambhajinagar')" class="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs bg-brand-accent text-brand-dark hover:bg-amber-400 transition-colors">
+                                <i class="fa-solid fa-phone mr-1"></i> Enquire Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROUTE 2 (UPCOMING ROUTES) -->
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden transition-all duration-300">
+                    <button onclick="toggleAccordion('route-2')" class="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors focus:outline-none">
+                        <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 w-fit">
+                                <i class="fa-solid fa-rocket text-[10px] mr-1.5"></i> Launching Soon
+                            </span>
+                            <h3 class="font-heading text-xl font-bold text-white">Upcoming Routes (Expansion Phase)</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 ml-4 shrink-0">
+                            <i id="icon-route-2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </div>
+                    </button>
+
+                    <div id="content-route-2" class="hidden border-t border-slate-800 px-6 py-6 bg-slate-900/40">
+                        <p class="text-sm text-slate-300 mb-6">We are expanding our premium luxury bus fleet to connect more major routes in Maharashtra soon!</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+                                <div class="text-xs font-bold text-brand-accent uppercase mb-1">Upcoming Route 01</div>
+                                <div class="font-bold text-white text-base">Mumbai ⇄ Sambhajinagar</div>
+                                <p class="text-xs text-slate-400 mt-2">Via Thane, Nashik & Samruddhi Mahamarg</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+                                <div class="text-xs font-bold text-brand-accent uppercase mb-1">Upcoming Route 02</div>
+                                <div class="font-bold text-white text-base">Pune ⇄ Nagpur</div>
+                                <p class="text-xs text-slate-400 mt-2">Overnight Luxury Sleeper Service</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+                                <div class="text-xs font-bold text-brand-accent uppercase mb-1">Upcoming Route 03</div>
+                                <div class="font-bold text-white text-base">Sambhajinagar ⇄ Nashik</div>
+                                <p class="text-xs text-slate-400 mt-2">Daily Fast Intercity Express</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= GALLERY SECTION ================= -->
+    <section id="gallery" class="py-20 bg-slate-950/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-accent mb-3">Our Fleet Gallery</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-extrabold text-white">Experience High-Class Travel</p>
+                <p class="mt-3 text-slate-400 text-sm sm:text-base">Take a look at our clean and modern buses designed for your travel comfort.</p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Photo 1 -->
+                <div class="group relative overflow-hidden rounded-2xl glass-panel border border-slate-800 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80', 'KalikaBus Premium Exterior')">
+                    <div class="aspect-video w-full overflow-hidden bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" 
+                             alt="Luxury Bus Exterior" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/f59e0b?text=KalikaBus+Exterior'"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <span class="text-xs text-brand-accent font-semibold uppercase tracking-wider">Fleet Exterior</span>
+                        <h4 class="text-white font-bold text-lg">Multi-Axle Premium Coach</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="group relative overflow-hidden rounded-2xl glass-panel border border-slate-800 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80', 'Comfortable AC Sleeper Berths')">
+                    <div class="aspect-video w-full overflow-hidden bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80" 
+                             alt="Sleeper Cabin Interior" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/f59e0b?text=Sleeper+Interior'"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <span class="text-xs text-brand-accent font-semibold uppercase tracking-wider">Interior Comfort</span>
+                        <h4 class="text-white font-bold text-lg">Spacious AC Sleeper Berths</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="group relative overflow-hidden rounded-2xl glass-panel border border-slate-800 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80', 'Clean & Sanitized Environment')">
+                    <div class="aspect-video w-full overflow-hidden bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=800&q=80" 
+                             alt="Reclining Seating Cabin" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/f59e0b?text=Clean+Seating+Cabins'"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <span class="text-xs text-brand-accent font-semibold uppercase tracking-wider">Seating Luxury</span>
+                        <h4 class="text-white font-bold text-lg">Push-Back Recliner Seats</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS SECTION ================= -->
+    <section id="testimonials" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-accent mb-3">Testimonials</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-extrabold text-white">What Our Passengers Say</p>
+                <p class="mt-3 text-slate-400 text-sm sm:text-base">Real feedback from regular travelers on our Pune - Sambhajinagar bus routes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="text-amber-400 text-sm mb-4 space-x-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+                        "I travel regularly from Wagholi to Sambhajinagar. KalikaBus is always punctual. The bus is neat and very well maintained!"
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">RD</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Rajesh Deshmukh</h4>
+                            <span class="text-xs text-slate-400">Regular Passenger</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="text-amber-400 text-sm mb-4 space-x-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+                        "Very safe environment for female travelers. Staff is super polite and phone booking was smooth. Highly recommended!"
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">PK</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Pooja Kulkarni</h4>
+                            <span class="text-xs text-slate-400">Solo Traveller</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="text-amber-400 text-sm mb-4 space-x-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+                        "Extremely smooth ride and clean seating. Reached CIDCO drop point right on time without any hassle."
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm">SJ</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Sanjay Jadhav</h4>
+                            <span class="text-xs text-slate-400">Business Commuter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-accent flex items-center justify-center text-brand-dark font-black">
+                            <i class="fa-solid fa-bus text-sm"></i>
+                        </div>
+                        <span class="font-heading font-extrabold text-xl text-white">KALIKA<span class="text-brand-accent">BUS</span></span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Your trustworthy luxury travel partner connecting Pune & Chhatrapati Sambhajinagar with clean, safe, and punctual bus service.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#home" class="hover:text-brand-accent transition-colors">Home</a></li>
+                        <li><a href="#why-us" class="hover:text-brand-accent transition-colors">Why Choose Us</a></li>
+                        <li><a href="#routes" class="hover:text-brand-accent transition-colors">Routes & Stops</a></li>
+                        <li><a href="#gallery" class="hover:text-brand-accent transition-colors">Fleet Gallery</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-accent transition-colors">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Popular Routes -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4">Routes</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#routes" class="hover:text-brand-accent transition-colors">Pune ➔ Sambhajinagar</a></li>
+                        <li><a href="#routes" class="hover:text-brand-accent transition-colors">Sambhajinagar ➔ Pune</a></li>
+                        <li><span class="text-slate-500">Mumbai to Sambhajinagar (Soon)</span></li>
+                        <li><span class="text-slate-500">Pune to Nagpur (Soon)</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Phone Booking Helpline -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4">Phone Booking Helpline</h5>
+                    <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+                        Call or WhatsApp our support desk directly for quick enquiries:
+                    </p>
+                    <a href="tel:+919876543210" class="text-brand-accent font-bold text-sm block hover:underline"><i class="fa-solid fa-phone mr-1.5"></i> +91 98765 43210</a>
+                    <a href="tel:+919123456789" class="text-slate-300 font-semibold text-xs block hover:underline mt-1"><i class="fa-solid fa-phone mr-1.5"></i> +91 91234 56789</a>
+                    <button onclick="openBookingModal()" class="mt-4 px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-brand-accent hover:bg-slate-700 transition-colors border border-amber-500/30">
+                        <i class="fa-solid fa-paper-plane mr-1"></i> Open Enquiry Dialog
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>&copy; <span id="year"></span> KalikaBus Travel Services. All rights reserved.</p>
+                <p class="mt-2 sm:mt-0">kalikabus.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= LIGHTBOX MODAL ================= -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-3xl focus:outline-none">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl w-full text-center">
+            <img id="lightbox-img" src="" alt="Gallery View" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl border border-slate-800">
+            <p id="lightbox-caption" class="text-white text-sm font-semibold mt-4"></p>
+        </div>
+    </div>
+
+    <!-- ================= ENQUIRE NOW MODAL DIALOG BOX ================= -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/30 shadow-2xl relative">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xl mx-auto mb-3">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <h3 class="font-heading text-xl font-bold text-white">Enquire Now for Seats</h3>
+                <p class="text-xs text-slate-400 mt-1">Call directly or send a quick phone enquiry</p>
+            </div>
+
+            <!-- Direct Contact Numbers Callout -->
+            <div class="space-y-3 mb-6">
+                <a href="tel:+919876543210" class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-brand-accent/60 transition-colors group">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Helpline 1</span>
+                            <span class="text-sm font-bold text-white group-hover:text-brand-accent transition-colors">+91 98765 43210</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent border border-brand-accent/30">Call Now</span>
+                </a>
+
+                <a href="https://wa.me/919876543210" target="_blank" class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-emerald-500/60 transition-colors group">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">WhatsApp Enquiry</span>
+                            <span class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">+91 98765 43210</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Chat</span>
+                </a>
+            </div>
+
+            <div class="relative flex py-2 items-center mb-4">
+                <div class="flex-grow border-t border-slate-800"></div>
+                <span class="flex-shrink mx-3 text-[11px] uppercase text-slate-500 font-semibold">Or Leave Details</span>
+                <div class="flex-grow border-t border-slate-800"></div>
+            </div>
+
+            <!-- Quick Enquiry Form -->
+            <form id="modal-enquiry-form" onsubmit="handleModalFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Your Full Name</label>
+                    <input type="text" id="modal-name" required placeholder="e.g. Rahul Sharma" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-accent">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Contact Number</label>
+                    <input type="tel" id="modal-phone" required placeholder="e.g. 9876543210" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-accent">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Preferred Route</label>
+                    <select id="modal-route" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-accent">
+                        <option value="Pune to Sambhajinagar">Pune ➔ Chhatrapati Sambhajinagar</option>
+                        <option value="Sambhajinagar to Pune">Chhatrapati Sambhajinagar ➔ Pune</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl font-bold text-sm bg-brand-accent text-brand-dark hover:bg-amber-400 shadow-lg shadow-amber-500/20 transition-all">
+                    Submit Phone Enquiry
+                </button>
+            </form>
+
+            <div id="modal-form-success" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-center text-xs">
+                <i class="fa-solid fa-circle-check text-lg block mb-1"></i>
+                Thank you! Our representative will call you back shortly.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // Set dynamic copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when link clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Accordion Toggle Logic (Collapsed routes)
+        function toggleAccordion(routeId) {
+            const content = document.getElementById(`content-${routeId}`);
+            const icon = document.getElementById(`icon-${routeId}`);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Lightbox Logic
+        function openLightbox(imageSrc, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            lightboxImg.src = imageSrc;
+            lightboxCaption.textContent = caption;
+            lightbox.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Booking Modal Dialog Logic
+        function openBookingModal(routePref) {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.remove('hidden');
+            if (routePref) {
+                const routeSelect = document.getElementById('modal-route');
+                if (routeSelect) {
+                    for (let i = 0; i < routeSelect.options.length; i++) {
+                        if (routeSelect.options[i].value.includes('Pune') && routePref.includes('Pune')) {
+                            routeSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+            document.getElementById('modal-form-success').classList.add('hidden');
+            document.getElementById('modal-enquiry-form').reset();
+        }
+
+        // Handle Quick Enquiry Submission inside Modal
+        function handleModalFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('modal-name').value;
+            const phone = document.getElementById('modal-phone').value;
+
+            if (name && phone) {
+                document.getElementById('modal-enquiry-form').classList.add('hidden');
+                document.getElementById('modal-form-success').classList.remove('hidden');
+                setTimeout(() => {
+                    closeBookingModal();
+                    document.getElementById('modal-enquiry-form').classList.remove('hidden');
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
